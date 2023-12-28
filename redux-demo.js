@@ -1,8 +1,10 @@
 const redux = require('redux')
 
 const counterReducer = (state = {counter: 0}, action) => {
-    return{
-        counter: state.counter + 1
+    if(action.type === 'increment'){
+        return{
+            counter: state.counter + (action.value || 1)   // Use action.value or default to 1
+        }
     }
 };
 
@@ -17,4 +19,6 @@ const counterSubscriber = () => {
 
 store.subscribe(counterSubscriber);
 
-store.dispatch({type: 'increment'});
+for(let i=0; i<5; i++){
+    store.dispatch({type: 'increment', value: 5});
+}
